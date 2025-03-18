@@ -23,7 +23,6 @@
 
     <!-- Terceira Linha: Gráfico de Temperatura -->
     <div class="linha-grafico">
-      
       <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
     </div>
   </div>
@@ -60,23 +59,34 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f7f6;
   color: #333;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Container principal */
 .app-container {
   padding: 20px;
+  width: 90vw;
   max-width: 1200px;
-  margin: 0 auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Primeira Linha: Título */
 .linha-titulo {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .linha-titulo h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #2c3e50;
 }
 
@@ -84,20 +94,21 @@ body {
 .linha-conteudo {
   display: flex;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  flex: 1;
 }
 
 /* Primeira Coluna: Texto Provisório */
 .coluna-texto {
   flex: 1;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .coluna-texto h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: #34495e;
   margin-bottom: 15px;
 }
@@ -111,36 +122,61 @@ body {
 /* Segunda Coluna: Tabela de Temperaturas */
 .coluna-tabela {
   flex: 2;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Terceira Linha: Espaço para o Gráfico */
-.linha-grafico {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.linha-grafico h2 {
-  font-size: 1.8rem;
-  color: #34495e;
-  margin-bottom: 15px;
-}
-
-.grafico-placeholder {
-  text-align: center;
-  padding: 50px;
   background-color: #f9f9f9;
-  border: 2px dashed #ddd;
+  padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.grafico-placeholder p {
-  font-size: 1.2rem;
-  color: #888;
+/* Terceira Linha: Gráfico de Temperatura */
+.linha-grafico {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 2;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .linha-conteudo {
+    flex-direction: column;
+  }
+
+  .coluna-texto, .coluna-tabela {
+    flex: none;
+    width: 100%;
+  }
+
+  .linha-titulo h1 {
+    font-size: 1.5rem;
+  }
+
+  .coluna-texto h2 {
+    font-size: 1.2rem;
+  }
+
+  .coluna-texto p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+    height: 95vh;
+  }
+
+  .linha-titulo h1 {
+    font-size: 1.2rem;
+  }
+
+  .coluna-texto h2 {
+    font-size: 1rem;
+  }
+
+  .coluna-texto p {
+    font-size: 0.8rem;
+  }
 }
 </style>

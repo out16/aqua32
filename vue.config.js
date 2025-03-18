@@ -1,5 +1,5 @@
 const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: './',  // Caminhos relativos
+  publicPath: process.env.NODE_ENV === 'production' ? '/aqua32v/' : '/',
 });
