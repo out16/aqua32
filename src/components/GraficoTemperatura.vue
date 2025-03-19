@@ -29,6 +29,9 @@ export default {
   },
   methods: {
     atualizarGrafico(dados) {
+      // Cria uma cópia invertida dos dados para o gráfico
+      const dadosInvertidos = [...dados].reverse();
+
       const chartDom = document.getElementById('grafico-temperatura');
       if (!chartDom) {
         console.error('Elemento do gráfico não encontrado.');
@@ -37,10 +40,11 @@ export default {
 
       const myChart = echarts.init(chartDom);
 
-      const horas = dados.map((item) => item.dataHora.split(' ')[1]);
-      const tempIdeal = dados.length > 0 ? dados[0].tempIdeal : null;
+      // Usa os dados invertidos para o gráfico
+      const horas = dadosInvertidos.map((item) => item.dataHora.split(' ')[1]);
+      const tempIdeal = dadosInvertidos.length > 0 ? dadosInvertidos[0].tempIdeal : null;
 
-      const temperaturas = dados.map((item) => item.tempAtual);
+      const temperaturas = dadosInvertidos.map((item) => item.tempAtual);
       const maximaDia = Math.max(...temperaturas);
       const minimaDia = Math.min(...temperaturas);
 
@@ -50,9 +54,9 @@ export default {
       const maximaDesejada = tempIdeal + 0.3;
       const minimaDesejada = tempIdeal - 0.3;
 
-      const pontos = dados.map((item, index) => {
+      const pontos = dadosInvertidos.map((item, index) => {
         const estilo = {};
-        
+
         if (item.ventilador === 1) {
           estilo.itemStyle = { color: '#002463' };
         } else if (item.aquecedor === 1) {
@@ -77,8 +81,8 @@ export default {
             const data = params[0].data.value;
             const hora = params[0].name;
             const temp = data.toFixed(2);
-            const aquecedor = dados[params[0].dataIndex].aquecedor ? 'Aquecedor Ligado' : '';
-            const ventilador = dados[params[0].dataIndex].ventilador ? 'Ventilador Ligado' : '';
+            const aquecedor = dadosInvertidos[params[0].dataIndex].aquecedor ? 'Aquecedor Ligado' : '';
+            const ventilador = dadosInvertidos[params[0].dataIndex].ventilador ? 'Ventilador Ligado' : '';
 
             return `
               Hora: ${hora}<br>
@@ -97,9 +101,6 @@ export default {
           type: 'value',
           min: minY,
           max: maxY,
-          axisLabel: {
-            
-          },
         },
         series: [
           {
@@ -107,8 +108,8 @@ export default {
             type: 'line',
             data: pontos,
             lineStyle: {
-                color: '#1A25ED', // Aqui está a cor da linha (exemplo: vermelho)
-                        },
+              color: '#1A25ED',
+            },
             markPoint: {
               data: [
                 {
@@ -116,17 +117,16 @@ export default {
                   name: 'Máxima',
                   itemStyle: { color: 'Red' },
                   label: {
-                  formatter: '{c} °C', // Exibe o valor do ponto com o símbolo °C
-                         },
-                  
+                    formatter: '{c} °C',
+                  },
                 },
                 {
                   type: 'min',
                   name: 'Mínima',
                   itemStyle: { color: '#1A25ED' },
                   label: {
-                  formatter: '{c} °C', // Exibe o valor do ponto com o símbolo °C
-                         },
+                    formatter: '{c} °C',
+                  },
                 },
               ],
             },
@@ -163,10 +163,9 @@ export default {
     },
     redimensionarGrafico() {
       if (this.myChart) {
-        // Adiciona um pequeno atraso para garantir que o layout seja recalculado
         setTimeout(() => {
           this.myChart.resize();
-        }, 100); // 100ms de atraso
+        }, 100);
       }
     },
   },
