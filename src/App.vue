@@ -1,52 +1,42 @@
 <template>
   <div>
-    <!-- Linha do título -->
-    <v-row class="linha-titulo">
-      <v-col>
-        <h1>Aqua32 - Pico Reef 30 litros</h1>
-      </v-col>
-    </v-row>
-
-    <!-- Linha das informações e tabela -->
     <v-row>
-      <!-- Coluna de texto (4 colunas) -->
+      <div class="linha-titulo">
+      <h1>Aqua32 - Pico Reef 30 litros</h1>
+    </div>
+    </v-row>
+    <v-row>
       <v-col cols="4">
         <div class="coluna-texto">
-          <h2>Informações Gerais</h2>
-          <p>Modelo: Boyu MT30</p>
-          <p>Volume bruto: 30 litros</p>
-          <p>Volume líquido: 23 litros</p>
-        </div>
+        <h2>Informações Gerais</h2>
+        <p>Modelo: Boyu MT30</p>
+        <p>Volume bruto: 30 litros</p>
+        <p>Volume líquido: 23 litros</p>
+      </div>
       </v-col>
 
-      <!-- Coluna de texto (4 colunas) -->
       <v-col cols="4">
         <div class="coluna-texto">
-          <h2>Informações Gerais</h2>
-          <p>Modelo: Boyu MT30</p>
-          <p>Volume bruto: 30 litros</p>
-          <p>Volume líquido: 23 litros</p>
-        </div>
+        <h2>Informações Gerais</h2>
+        <p>Modelo: Boyu MT30</p>
+        <p>Volume bruto: 30 litros</p>
+        <p>Volume líquido: 23 litros</p>
+      </div>
       </v-col>
 
-      <!-- Coluna da tabela (4 colunas) -->
-      <v-col cols="4">
+      <v-row>
         <div class="coluna-tabela">
-          <TabelaTemperatura ref="tabelaTemperatura" />
-        </div>
-      </v-col>
+        <TabelaTemperatura ref="tabelaTemperatura" />
+      </div>
+      </v-row>
     </v-row>
-
-    <!-- Linha do gráfico -->
     <v-row>
-      <v-col>
-        <div class="linha-grafico">
-          <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
-        </div>
-      </v-col>
+      <div class="linha-grafico">
+      <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
+    </div>
     </v-row>
   </div>
-</template>
+  </template>
 
 <script>
 import TabelaTemperatura from './components/TabelaTemperatura.vue';
@@ -65,17 +55,14 @@ export default {
   },
   mounted() {
     // Observa mudanças nos dados filtrados da tabela
-    this.$watch(
-      () => this.$refs.tabelaTemperatura.dadosFiltrados,
-      (novosDados) => {
-        this.dadosFiltrados = novosDados;
-      }
-    );
+    this.$refs.tabelaTemperatura.$watch('dadosFiltrados', (novosDados) => {
+      this.dadosFiltrados = novosDados;
+    });
   },
 };
 </script>
 
-<style scoped>
+<style>
 /* Estilo básico para o título */
 .linha-titulo {
   background-color: #00064A; /* Azul escuro */
@@ -97,10 +84,11 @@ export default {
 /* Estilo básico para a área da tabela */
 .coluna-tabela {
   background-color: #ffffff; /* Fundo branco */
-  padding: 15px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  /* padding: 1px; Espaçamento interno */
+  /* border-radius: 5px; Bordas arredondadas */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Sombra leve */
 }
+
 
 /* Estilo básico para a linha do gráfico */
 .linha-grafico {
@@ -111,3 +99,4 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 </style>
+
