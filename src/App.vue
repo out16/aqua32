@@ -1,30 +1,50 @@
 <template>
-  <div class="app-container">
-    <!-- Primeira Linha: Título -->
-    <div class="linha-titulo">
-      <h1>Aqua32 - Pico Reef 30 litros</h1>
-    </div>
+  <div>
+    <!-- Linha do título -->
+    <v-row class="linha-titulo">
+      <v-col>
+        <h1>Aqua32 - Pico Reef 30 litros</h1>
+      </v-col>
+    </v-row>
 
-    <!-- Segunda Linha: Duas Colunas -->
-    <div class="linha-conteudo">
-      <!-- Primeira Coluna: Texto Provisório -->
-      <div class="coluna-texto">
-        <h2>Informações Gerais</h2>
-        <p>Modelo: Boyu MT30</p>
-        <p>Volume bruto: 30 litros</p>
-        <p>Volume líquido: 23 litros</p>
-      </div>
+    <!-- Linha das informações e tabela -->
+    <v-row>
+      <!-- Coluna de texto (4 colunas) -->
+      <v-col cols="4">
+        <div class="coluna-texto">
+          <h2>Informações Gerais</h2>
+          <p>Modelo: Boyu MT30</p>
+          <p>Volume bruto: 30 litros</p>
+          <p>Volume líquido: 23 litros</p>
+        </div>
+      </v-col>
 
-      <!-- Segunda Coluna: Tabela de Temperaturas -->
-      <div class="coluna-tabela">
-        <TabelaTemperatura ref="tabelaTemperatura" />
-      </div>
-    </div>
+      <!-- Coluna de texto (4 colunas) -->
+      <v-col cols="4">
+        <div class="coluna-texto">
+          <h2>Informações Gerais</h2>
+          <p>Modelo: Boyu MT30</p>
+          <p>Volume bruto: 30 litros</p>
+          <p>Volume líquido: 23 litros</p>
+        </div>
+      </v-col>
 
-    <!-- Terceira Linha: Gráfico de Temperatura -->
-    <div class="linha-grafico">
-      <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
-    </div>
+      <!-- Coluna da tabela (4 colunas) -->
+      <v-col cols="4">
+        <div class="coluna-tabela">
+          <TabelaTemperatura ref="tabelaTemperatura" />
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- Linha do gráfico -->
+    <v-row>
+      <v-col>
+        <div class="linha-grafico">
+          <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -45,138 +65,49 @@ export default {
   },
   mounted() {
     // Observa mudanças nos dados filtrados da tabela
-    this.$refs.tabelaTemperatura.$watch('dadosFiltrados', (novosDados) => {
-      this.dadosFiltrados = novosDados;
-    });
+    this.$watch(
+      () => this.$refs.tabelaTemperatura.dadosFiltrados,
+      (novosDados) => {
+        this.dadosFiltrados = novosDados;
+      }
+    );
   },
 };
 </script>
 
-<style>
-/* Estilos globais */
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f7f6;
-  color: #333;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Container principal */
-.app-container {
-  padding: 20px;
-  width: 90vw;
-  max-width: 1200px;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Primeira Linha: Título */
+<style scoped>
+/* Estilo básico para o título */
 .linha-titulo {
-  text-align: center;
-  margin-bottom: 20px;
+  background-color: #00064A; /* Azul escuro */
+  color: #0089BF; /* Cor do texto */
+  padding: 10px 0; /* Espaçamento interno */
+  text-align: center; /* Centraliza o texto */
 }
 
-.linha-titulo h1 {
-  font-size: 2rem;
-  color: #2c3e50;
-}
-
-/* Segunda Linha: Duas Colunas */
-.linha-conteudo {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-  flex: 1;
-}
-
-/* Primeira Coluna: Texto Provisório */
+/* Estilo básico para o conteúdo */
 .coluna-texto {
-  flex: 1;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9; /* Fundo claro */
+  margin-bottom: 20px; /* Margem inferior de 20px */
+  padding: 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  box-sizing: border-box; /* Garante que padding e border não aumentem a largura */
 }
 
-.coluna-texto h2 {
-  font-size: 1.5rem;
-  color: #34495e;
-  margin-bottom: 15px;
-}
-
-.coluna-texto p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #666;
-}
-
-/* Segunda Coluna: Tabela de Temperaturas */
+/* Estilo básico para a área da tabela */
 .coluna-tabela {
-  flex: 2;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* Fundo branco */
+  padding: 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 
-/* Terceira Linha: Gráfico de Temperatura */
+/* Estilo básico para a linha do gráfico */
 .linha-grafico {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 2;
-}
-
-/* Media Queries para Responsividade */
-@media (max-width: 768px) {
-  .linha-conteudo {
-    flex-direction: column;
-  }
-
-  .coluna-texto, .coluna-tabela {
-    flex: none;
-    width: 100%;
-  }
-
-  .linha-titulo h1 {
-    font-size: 1.5rem;
-  }
-
-  .coluna-texto h2 {
-    font-size: 1.2rem;
-  }
-
-  .coluna-texto p {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-container {
-    padding: 10px;
-    height: 95vh;
-  }
-
-  .linha-titulo h1 {
-    font-size: 1.2rem;
-  }
-
-  .coluna-texto h2 {
-    font-size: 1rem;
-  }
-
-  .coluna-texto p {
-    font-size: 0.8rem;
-  }
+  margin-top: 20px; /* Espaçamento superior */
+  background-color: #ffffff; /* Fundo branco */
+  padding: 15px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 </style>
