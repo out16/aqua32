@@ -1,60 +1,78 @@
 <template>
   <div>
-    <v-row>
-      <div class="linha-titulo">
-      <h1>Aqua32 - Pico Reef 30 litros</h1>
-    </div>
-    </v-row>
-    <v-row>
-      <v-col cols="4">
-        <div class="coluna-texto">
-        <h2>Informações Gerais</h2>
-        <p>Modelo: Boyu MT30</p>
-        <p>Volume bruto: 30 litros</p>
-        <p>Volume líquido: 23 litros</p>
-      </div>
-      </v-col>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="12">
+          <div class="linha-titulo">
+            <h1>Aqua32 - Pico Reef 30 litros</h1>
+          </div>
+        </v-col>
+      </v-row>
 
-      <v-col cols="4">
-        <div class="coluna-texto">
-        <h2>Informações Gerais</h2>
-        <p>Modelo: Boyu MT30</p>
-        <p>Volume bruto: 30 litros</p>
-        <p>Volume líquido: 23 litros</p>
-      </div>
-      </v-col>
+      <v-row class="info-geral-row">
+        <v-col cols="12" sm="6" md="4">
+          <div class="coluna-texto">
+            <h2>Informações Gerais</h2>
+            <p>Modelo: Boyu MT30</p>
+            <p>Volume bruto: 30 litros</p>
+            <p>Volume líquido: 23 litros</p>
+            <p>Densidade: 1025ppm</p>
+          </div>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="4">
+          <div class="coluna-texto">
+            <GraficoVelocimetro />
+          </div>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="4">
+          <div class="coluna-texto">
+            <h2>Informações Gerais</h2>
+            <p>Modelo: Boyu MT30</p>
+            <p>Volume bruto: 30 litros</p>
+            <p>Volume líquido: 23 litros</p>
+          </div>
+        </v-col>
+      </v-row>
 
       <v-row>
-        <div class="coluna-tabela">
-        <TabelaTemperatura ref="tabelaTemperatura" />
-      </div>
+        <v-col cols="12">
+          <div class="coluna-tabela">
+            <TabelaTemperatura ref="tabelaTemperatura" />
+          </div>
+        </v-col>
       </v-row>
-    </v-row>
-    <v-row>
-      <div class="linha-grafico">
-      <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
-    </div>
-    </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <div class="linha-grafico">
+            <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
-  </template>
+</template>
 
 <script>
 import TabelaTemperatura from './components/TabelaTemperatura.vue';
 import GraficoTemperatura from './components/GraficoTemperatura.vue';
+import GraficoVelocimetro from './components/GraficoVelocimetro.vue';
 
 export default {
   name: 'App',
   components: {
     TabelaTemperatura,
     GraficoTemperatura,
+    GraficoVelocimetro,
   },
   data() {
     return {
-      dadosFiltrados: [], // Dados filtrados que serão passados para o gráfico
+      dadosFiltrados: [],
     };
   },
   mounted() {
-    // Observa mudanças nos dados filtrados da tabela
     this.$refs.tabelaTemperatura.$watch('dadosFiltrados', (novosDados) => {
       this.dadosFiltrados = novosDados;
     });
@@ -62,41 +80,41 @@ export default {
 };
 </script>
 
-<style>
-/* Estilo básico para o título */
+<style scoped>
+* {
+  font-family: Arial, sans-serif;
+}
+
 .linha-titulo {
-  background-color: #00064A; /* Azul escuro */
-  color: #0089BF; /* Cor do texto */
-  padding: 10px 0; /* Espaçamento interno */
-  text-align: center; /* Centraliza o texto */
+  background-color: #00064A;
+  color: #0089BF;
+  padding: 10px 0;
+  text-align: center;
 }
 
-/* Estilo básico para o conteúdo */
+.info-geral-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
 .coluna-texto {
-  background-color: #f9f9f9; /* Fundo claro */
-  margin-bottom: 20px; /* Margem inferior de 20px */
-  padding: 15px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
-  box-sizing: border-box; /* Garante que padding e border não aumentem a largura */
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  min-width: 250px;
+  flex: 1 1 300px;
 }
 
-/* Estilo básico para a área da tabela */
-.coluna-tabela {
-  background-color: #ffffff; /* Fundo branco */
-  /* padding: 1px; Espaçamento interno */
-  /* border-radius: 5px; Bordas arredondadas */
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Sombra leve */
-}
-
-
-/* Estilo básico para a linha do gráfico */
 .linha-grafico {
-  margin-top: 20px; /* Espaçamento superior */
-  background-color: #ffffff; /* Fundo branco */
-  padding: 15px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 </style>
-
