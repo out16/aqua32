@@ -162,6 +162,7 @@
   
   .filtro-data label {
     margin-right: 10px;
+    margin-top: 30px;
   }
   
   table {

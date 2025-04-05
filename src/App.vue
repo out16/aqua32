@@ -32,7 +32,7 @@
           </div>
         </v-col>
       </v-row>
-
+<v-row class="linha-espaco"></v-row>
       <v-row>
         <v-col cols="12">
           <div class="coluna-tabela">
@@ -116,5 +116,9 @@ export default {
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.linha-espaco{
+  padding: 100px;
 }
 </style>
