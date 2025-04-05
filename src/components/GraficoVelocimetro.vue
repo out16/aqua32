@@ -1,86 +1,112 @@
 <template>
-    <div ref="chart" class="chart-container"></div>
-  </template>
-  
-  <script>
-  import * as echarts from 'echarts';
-  
-  export default {
-    name: 'GaugeChart',
-    mounted() {
-      this.initChart();
-      this.updateChart();
-    },
-    methods: {
-      initChart() {
-        this.chart = echarts.init(this.$refs.chart);
-        this.chart.setOption({
-          series: [
-            {
-              type: 'gauge',
-              axisLine: {
-                lineStyle: {
-                  width: 30,
-                  color: [
-                    [0.3, '#67e0e3'],
-                    [0.7, '#37a2da'],
-                    [1, '#fd666d']
-                  ]
-                }
-              },
-              pointer: {
-                itemStyle: {
-                  color: 'auto'
-                }
-              },
-              axisTick: {
-                distance: -30,
-                length: 8,
-                lineStyle: {
-                  color: '#fff',
-                  width: 2
-                }
-              },
-              splitLine: {
-                distance: -30,
-                length: 30,
-                lineStyle: {
-                  color: '#fff',
-                  width: 4
-                }
-              },
-              axisLabel: {
-                color: 'inherit',
-                distance: 40,
-                fontSize: 20
-              },
-              detail: {
-                valueAnimation: true,
-                formatter: '{value} km/h',
-                color: 'inherit'
-              },
-              data: [{ value: 70 }]
-            }
-          ]
-        });
-      },
-      updateChart() {
-        setInterval(() => {
-          this.chart.setOption({
-            series: [{
-              data: [{ value: +(Math.random() * 100).toFixed(2) }]
+  <div ref="chartDom" style="width: 100%; height: 400px;"></div>
+</template>
+
+<script>
+import * as echarts from 'echarts';
+import { database, ref, onValue } from '../firebase';
+
+export default {
+  name: 'TemperatureGauge',
+  data() {
+    const temperaturaPadrao = 27.0; // Defina aqui sua temperatura padrão
+    
+    return {
+      myChart: null,
+      firebaseUnsubscribe: null,
+      temperaturaPadrao, // Disponibiliza como propriedade do componente
+      option: {
+        series: [
+          {
+            type: 'gauge',
+            min: temperaturaPadrao - 1,   // temperaturaPadrao -1
+            max: temperaturaPadrao + 1,   // temperaturaPadrao +1
+            startAngle: 200,
+            endAngle: -20,
+            axisLine: {
+              lineStyle: {
+                width: 30,
+                color: [
+                  // Pontos de quebra calculados dinamicamente
+                  [(temperaturaPadrao - 0.3 - (temperaturaPadrao - 1)) / 2, '#67e0e3'], // Faixa baixa
+                  [(temperaturaPadrao + 0.3 - (temperaturaPadrao - 1)) / 2, '#37a2da'], // Faixa média
+                  [1, '#fd666d'] // Faixa alta
+                ]
+              }
+            },
+            pointer: {
+              show: true,
+              length: '80%',
+              width: 8,
+              itemStyle: {
+                color: '#333'
+              }
+            },
+            axisTick: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            axisLabel: {
+              show: false
+            },
+            detail: {
+              valueAnimation: true,
+              formatter: '{value}°C',
+              color: '#333',
+              fontSize: 28,
+              offsetCenter: [0, '70%'],
+              borderWidth: 0
+            },
+            data: [{
+              value: temperaturaPadrao // Valor inicial
             }]
-          });
-        }, 2000);
+          }
+        ]
       }
+    };
+  },
+  mounted() {
+    this.initChart();
+    this.setupFirebaseListener();
+  },
+  beforeUnmount() {
+    if (this.myChart) {
+      this.myChart.dispose();
     }
-  };
-  </script>
-  
-  <style scoped>
-  .chart-container {
-    width: 100%;
-    height: 300px;
+    if (this.firebaseUnsubscribe) {
+      this.firebaseUnsubscribe();
+    }
+  },
+  methods: {
+    initChart() {
+      this.myChart = echarts.init(this.$refs.chartDom);
+      this.myChart.setOption(this.option);
+    },
+    setupFirebaseListener() {
+      const dadosRef = ref(database, 'dadosMomentaneos');
+      
+      this.firebaseUnsubscribe = onValue(dadosRef, (snapshot) => {
+        const data = snapshot.val();
+        
+        if (data && data.temperatura !== undefined) {
+          const tempValue = parseFloat(data.temperatura);
+          if (!isNaN(tempValue)) {
+            this.updateChart(tempValue.toFixed(2));
+          }
+        }
+      });
+    },
+    updateChart(temperature) {
+      this.myChart.setOption({
+        series: [{
+          data: [{
+            value: parseFloat(temperature)
+          }]
+        }]
+      });
+    }
   }
-  </style>
-  
+};
+</script>

@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12">
           <div class="linha-titulo">
-            <h1>Aqua32 - Pico Reef 30 litros</h1>
+            <h2>Aqua32 - Pico Reef 30 litros</h2>
           </div>
         </v-col>
       </v-row>
@@ -27,11 +27,8 @@
         </v-col>
 
         <v-col cols="12" sm="6" md="4">
-          <div class="coluna-texto">
-            <h2>Informações Gerais</h2>
-            <p>Modelo: Boyu MT30</p>
-            <p>Volume bruto: 30 litros</p>
-            <p>Volume líquido: 23 litros</p>
+          <div>
+            <status/>
           </div>
         </v-col>
       </v-row>
@@ -59,6 +56,7 @@
 import TabelaTemperatura from './components/TabelaTemperatura.vue';
 import GraficoTemperatura from './components/GraficoTemperatura.vue';
 import GraficoVelocimetro from './components/GraficoVelocimetro.vue';
+import status from './components/Status.vue';
 
 export default {
   name: 'App',
@@ -66,6 +64,7 @@ export default {
     TabelaTemperatura,
     GraficoTemperatura,
     GraficoVelocimetro,
+    status,
   },
   data() {
     return {
