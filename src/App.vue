@@ -27,7 +27,7 @@
         </v-col>
 
         <v-col cols="12" sm="6" md="4">
-          <div>
+          <div class="coluna-texto">
             <status/>
           </div>
         </v-col>
@@ -107,6 +107,7 @@ export default {
   text-align: center;
   min-width: 250px;
   flex: 1 1 300px;
+  height: 250px
 }
 
 .linha-grafico {

@@ -1,16 +1,18 @@
 <template>
-    <div class="status-container">
-      <div 
-        class="status-box" 
-        :class="{ 'active': modoTPA === 1 }"
-      >
-        Modo TPA
-      </div>
-      <div 
-        class="status-box" 
-        :class="{ 'active': failsafe === 1 }"
-      >
-        FailSafe
+    <div class="status-wrapper">
+      <div class="status-container">
+        <div 
+          class="status-box" 
+          :class="{ 'active': modoTPA === 1 }"
+        >
+          Modo TPA
+        </div>
+        <div 
+          class="status-box" 
+          :class="{ 'active': failsafe === 1 }"
+        >
+          FailSafe
+        </div>
       </div>
     </div>
   </template>
@@ -55,14 +57,20 @@
   </script>
   
   <style scoped>
+  .status-wrapper {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    height: 100%; /* Ocupa toda a altura disponível */
+  }
+  
   .status-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
     max-width: 200px;
-    margin: 0 auto;
-    font-family: 'Arial', sans-serif; /* Tipo de fonte padrão */
+    /* Removido margin: 0 auto pois o wrapper já centraliza */
   }
   
   .status-box {
@@ -73,31 +81,13 @@
     border-radius: 5px;
     font-weight: bold;
     transition: all 0.3s ease;
-    font-size: 20px; /* Tamanho padrão do texto */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte alternativa */
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
   .status-box.active {
     background-color: #ff6b6b;
     color: white;
     border-color: #ff5252;
-  }
-  
-  /* Opções de personalização adicionais */
-  .status-box {
-    /* Para fonte maior */
-    /* font-size: 18px; */
-    
-    /* Para fonte menor */
-    /* font-size: 14px; */
-    
-    /* Para fonte monoespaçada */
-    /* font-family: 'Courier New', monospace; */
-    
-    /* Para fonte mais arredondada */
-    /* font-family: 'Comic Sans MS', cursive; */
-    
-    /* Para fonte mais elegante */
-    /* font-family: 'Georgia', serif; */
   }
   </style>
