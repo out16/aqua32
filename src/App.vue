@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="app-container">
     <v-container fluid>
       <v-row>
         <v-col cols="12">
           <div class="linha-titulo">
-            <h2>Aqua32 - Pico Reef 30 litros</h2>
+            <h2>Aqua32</h2>
+            <h3>Pico Reef 30 litros</h3>
           </div>
         </v-col>
       </v-row>
@@ -84,8 +85,15 @@ export default {
   font-family: Arial, sans-serif;
 }
 
+
+.app-container {
+  background-color: #000533; /* Cor de fundo desejada */
+  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+}
+
+
 .linha-titulo {
-  background-color: #00064A;
+  background-color: #000533;
   color: #0089BF;
   padding: 10px 0;
   text-align: center;
@@ -99,20 +107,22 @@ export default {
 }
 
 .coluna-texto {
-  background-color: #f9f9f9;
+  background-color: #262F80;
   padding: 15px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
+  color: #ffffff;
   text-align: center;
   min-width: 250px;
   flex: 1 1 300px;
-  height: 250px
+  height: 250px;
+  box-shadow: inset 1px 1px 2px #6e73a8, inset -1px -1px 2px #a0a9fc;
 }
 
 .linha-grafico {
   margin-top: 20px;
-  background-color: #ffffff;
+  background-color: #000533;
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

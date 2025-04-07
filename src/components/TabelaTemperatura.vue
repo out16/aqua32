@@ -158,6 +158,7 @@
   <style scoped>
   .filtro-data {
     margin-bottom: 20px;
+    color: #FFFFFF;
   }
   
   .filtro-data label {
@@ -169,62 +170,71 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #000533; /* Adiciona fundo branco para a tabela */
+    color: #FFFFFF;
   }
   
   th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #4F58AA;
     padding: 8px;
     text-align: center;
+    background-color: inherit; /* Herda o background da linha */
   }
   
   th {
-    background-color: #f4f4f4;
+    background-color: #000533;
   }
   
   /* Linhas alternadas (cinza e branco) */
   tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #0B1355;
   }
   
   /* Efeito hover nas linhas */
   tr:hover {
-    background-color: #f1f1f1;
+    background-color: #262F80;
   }
   
   /* Classes para cores de fundo dinâmicas */
   .linha-ventilador-ligado {
-    background-color: #add8e6 !important; /* Azul claro */
+    /* background-color: #add8e6 !important; Azul claro */
+    color: #3749e8;
+    font-weight: bold;
   }
   
   .linha-aquecedor-ligado {
-    background-color: #ffcccb !important; /* Vermelho claro */
+    /* background-color: #ffcccb !important; Vermelho claro */
+    color: #ab1717;
+    font-weight: bold;
+
   }
   
   /* Controles de paginação */
   .paginacao {
     margin-top: 20px;
     text-align: center;
+    color: #FFFFFF;
   }
   
   .paginacao button {
     padding: 8px 16px;
     margin: 0 5px;
     border: none;
-    background-color: #2c3e50;
+    background-color: #262F80;
     color: white;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .paginacao button:disabled {
-    background-color: #ccc;
+    background-color: #0B1355;
     cursor: not-allowed;
   }
   
   .paginacao span {
     margin: 0 10px;
     font-size: 1rem;
-    color: #333;
+    color: #FFFFFF;
   }
   
   /* Mensagem de limite de registros */

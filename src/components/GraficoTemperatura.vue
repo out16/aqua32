@@ -71,9 +71,9 @@ export default {
       });
 
       const option = {
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#000533',
         title: {
-          text: 'Variação da Temperatura',
+          text: '',
         },
         tooltip: {
           trigger: 'axis',
@@ -96,11 +96,17 @@ export default {
           type: 'category',
           boundaryGap: false,
           data: horas,
+          axisLabel: {
+    color: '#FFFFFF' // Cor dos rótulos do eixo X
+  },
         },
         yAxis: {
           type: 'value',
           min: minY,
           max: maxY,
+          axisLabel: {
+    color: '#FFFFFF' // Cor dos rótulos do eixo X
+  },
         },
         series: [
           {

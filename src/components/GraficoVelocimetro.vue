@@ -39,7 +39,7 @@ export default {
               length: '80%',
               width: 8,
               itemStyle: {
-                color: '#333'
+                color: '#FFFFFF'
               }
             },
             axisTick: {
@@ -54,7 +54,7 @@ export default {
             detail: {
               valueAnimation: true,
               formatter: '{value}°C',
-              color: '#333',
+              color: '#FFFFFF',
               fontSize: 28,
               offsetCenter: [0, '70%'],
               borderWidth: 0
