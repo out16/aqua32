@@ -109,7 +109,7 @@ export default {
   transition: all 0.3s ease;
   font-size: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* box-shadow: inset 4px 4px 8px #6e73a8, inset -4px -4px 8px #a0a9fc; */
+  box-shadow: inset 4px 4px 8px #6e73a8, inset -4px -4px 8px #a0a9fc;
 }
 
 .status-box.active {
