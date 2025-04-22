@@ -1,9 +1,15 @@
 <template>
   <div class="gauge-container">
-    <div ref="chartDom" style="width: 100%; height: 250px;"></div>
+    <div ref="chartDom" style="width: 100%; height: 180px;"></div>
     <div class="ideal-temperature">
       Ideal: {{ formatTemperature(temperaturaPadrao) }}°C
     </div>
+    <button 
+      @click="toggleDetalhes" 
+      class="botao-detalhar"
+    >
+      {{ mostrarDetalhes ? 'Ocultar Detalhes' : 'Detalhar' }}
+    </button>
   </div>
 </template>
 
@@ -12,18 +18,24 @@ import * as echarts from 'echarts';
 import { database, ref, onValue } from '../firebase';
 
 export default {
-  name: 'TemperatureGauge',
+  name: 'GraficoVelocimetro',
+  props: {
+    mostrarDetalhes: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       myChart: null,
       firebaseUnsubscribe: null,
-      temperaturaPadrao: 27.0, // Valor inicial será sobrescrito pelo Firebase
+      temperaturaPadrao: 27.0,
       option: {
         series: [
           {
             type: 'gauge',
-            min: 25.0, // Valores mínimos e máximos ajustáveis
-            max: 29.0,
+            min: 24.5,
+            max: 28.5,
             startAngle: 200,
             endAngle: -20,
             axisLine: {
@@ -86,7 +98,6 @@ export default {
         const data = snapshot.val();
         
         if (data) {
-          // Atualiza temperatura atual do gráfico
           if (data.temperatura !== undefined) {
             const tempValue = parseFloat(data.temperatura);
             if (!isNaN(tempValue)) {
@@ -94,12 +105,11 @@ export default {
             }
           }
           
-          // Atualiza temperatura padrão (ideal) vinda do Firebase
           if (data.temperatura_ideal !== undefined) {
             const novaTemperaturaPadrao = parseFloat(data.temperatura_ideal);
             if (!isNaN(novaTemperaturaPadrao)) {
               this.temperaturaPadrao = novaTemperaturaPadrao;
-              this.updateGaugeRange(); // Atualiza a faixa do gráfico
+              this.updateGaugeRange();
             }
           }
         }
@@ -115,9 +125,8 @@ export default {
       });
     },
     updateGaugeRange() {
-      // Atualiza os limites do gráfico baseado na temperatura ideal
-      const min = this.temperaturaPadrao - 2;
-      const max = this.temperaturaPadrao + 2;
+      const min = this.temperaturaPadrao - 1;
+      const max = this.temperaturaPadrao + 1;
       
       this.myChart.setOption({
         series: [{
@@ -134,6 +143,9 @@ export default {
           }
         }]
       });
+    },
+    toggleDetalhes() {
+      this.$emit('toggle-detalhes');
     }
   },
   mounted() {
@@ -160,18 +172,36 @@ export default {
 
 .ideal-temperature {
   position: absolute;
-  bottom: 15px;
+  bottom: 50px;
   left: 0;
   right: 0;
   text-align: center;
   font-size: 11px;
   color: #AAAAAA;
-  
   padding: 4px 8px;
- 
   width: auto;
   max-width: 150px;
   margin: 0 auto;
-  
+}
+
+.botao-detalhar {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background-color: #3a45a3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  width: 80%;
+  max-width: 150px;
+}
+
+.botao-detalhar:hover {
+  background-color: #4d5ac4;
 }
 </style>

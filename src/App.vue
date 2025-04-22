@@ -23,7 +23,10 @@
 
         <v-col cols="12" sm="6" md="4">
           <div class="coluna-texto">
-            <GraficoVelocimetro />
+            <GraficoVelocimetro 
+              :mostrarDetalhes="mostrarDetalhes"
+              @toggle-detalhes="toggleDetalhes"
+            />
           </div>
         </v-col>
 
@@ -32,17 +35,26 @@
             <status/>
           </div>
         </v-col>
-      </v-row>
-<v-row class="linha-espaco"></v-row>
-      <v-row>
-        <v-col cols="12">
-          <div class="coluna-tabela">
-            <TabelaTemperatura ref="tabelaTemperatura" />
+        <v-col cols="12" sm="6" md="4">
+          <div>
+            <AjusteTemperatura />
           </div>
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row v-if="mostrarDetalhes">
+        <v-col cols="12">
+          <div class="coluna-tabela">
+            <TabelaTemperatura 
+              ref="tabelaTemperatura" 
+              :key="tabelaKey"
+              @dados-carregados="handleDadosCarregados"
+            />
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-row v-if="mostrarDetalhes && dadosFiltrados.length > 0">
         <v-col cols="12">
           <div class="linha-grafico">
             <GraficoTemperatura :dadosFiltrados="dadosFiltrados" />
@@ -57,6 +69,7 @@
 import TabelaTemperatura from './components/TabelaTemperatura.vue';
 import GraficoTemperatura from './components/GraficoTemperatura.vue';
 import GraficoVelocimetro from './components/GraficoVelocimetro.vue';
+import AjusteTemperatura from './components/AjusteTemperatura.vue';
 import status from './components/Status.vue';
 
 export default {
@@ -65,18 +78,27 @@ export default {
     TabelaTemperatura,
     GraficoTemperatura,
     GraficoVelocimetro,
+    AjusteTemperatura,
     status,
   },
   data() {
     return {
       dadosFiltrados: [],
+      mostrarDetalhes: false,
+      tabelaKey: 0
     };
   },
-  mounted() {
-    this.$refs.tabelaTemperatura.$watch('dadosFiltrados', (novosDados) => {
-      this.dadosFiltrados = novosDados;
-    });
-  },
+  methods: {
+    toggleDetalhes() {
+      this.mostrarDetalhes = !this.mostrarDetalhes;
+      if (this.mostrarDetalhes) {
+        this.tabelaKey += 1;
+      }
+    },
+    handleDadosCarregados(dados) {
+      this.dadosFiltrados = dados;
+    }
+  }
 };
 </script>
 
@@ -85,12 +107,10 @@ export default {
   font-family: Arial, sans-serif;
 }
 
-
 .app-container {
-  background-color: #000533; /* Cor de fundo desejada */
-  min-height: 100vh; /* Garante que o fundo cubra toda a altura da tela */
+  background-color: #000533;
+  min-height: 100vh;
 }
-
 
 .linha-titulo {
   background-color: #000533;
@@ -110,7 +130,6 @@ export default {
   background-color: #262F80;
   padding: 15px;
   border-radius: 5px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
   color: #ffffff;
   text-align: center;
@@ -128,7 +147,11 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.linha-espaco{
-  padding: 100px;
+.coluna-tabela {
+  margin-top: 20px;
+  background-color: #262F80;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
 }
 </style>
