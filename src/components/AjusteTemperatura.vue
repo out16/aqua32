@@ -160,13 +160,13 @@ export default {
 
 .linha-temperatura h3 {
   margin: 0 0 3px 0;
-  font-size: 0.95rem;
+  font-size: 0.70rem;
   line-height: 1.2;
   font-weight: 500;
 }
 
 .valor-temperatura {
-  font-size: 1.25rem;
+  font-size: 1.50rem;
   font-weight: bold;
   line-height: 1.3;
   margin: 0;
@@ -181,8 +181,8 @@ export default {
 }
 
 .botao-ajuste {
-  width: 42px;
-  height: 34px;
+  width: 50px;
+  height: 50px;
   font-size: 1.25rem;
   background-color: #3a45a3;
   color: white;
@@ -215,8 +215,9 @@ export default {
 }
 
 .botao-enviar {
-  width: 100%;
+  width: 110px;
   max-width: 180px;
+  height: 50px;
   margin: 0 auto;
   padding: 7px 10px;
   background-color: #3a45a3;
@@ -254,8 +255,8 @@ export default {
   }
   
   .botao-ajuste {
-    width: 38px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     font-size: 1.1rem;
   }
   
